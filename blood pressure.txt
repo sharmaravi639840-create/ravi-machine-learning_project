@@ -1,0 +1,28 @@
+import pandas as pd
+from sklearn.cluster import KMeans
+
+path = r"/content/heart_disease.csv"
+
+
+df = pd.read_csv(path)
+
+X = df[['Blood Pressure']]
+
+# Handle missing values by dropping rows with NaN in 'Blood Pressure'
+X = X.dropna()
+
+model = KMeans(n_clusters=3, random_state=0, n_init='auto')
+
+model.fit(X)
+
+# Assign cluster labels back to the original DataFrame, ensuring alignment after dropping NaNs
+df = df.loc[X.index].copy()
+df['bp_cluster'] = model.labels_
+
+pd.set_option('display.max_rows', None)
+
+
+print(df[['Blood Pressure', 'bp_cluster']])
+
+print("\nCluster Center (BP value):")
+print(model.cluster_centers_)
