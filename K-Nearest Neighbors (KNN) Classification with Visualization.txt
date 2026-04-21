@@ -1,0 +1,25 @@
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.neighbors import KNeighborsClassifier
+
+
+X = [[1,2], [2,3], [3,3], [6,5], [7,7]]
+y = [0,0,0,1,1]
+
+
+model = KNeighborsClassifier(n_neighbors=3)
+model.fit(X, y)
+
+
+new_point = [[5,5]]
+
+for i in range(len(X)):
+    if y[i] == 0:
+        plt.scatter(X[i][0], X[i][1])
+    else:
+        plt.scatter(X[i][0], X[i][1])
+
+plt.scatter(new_point[0][0], new_point[0][1], marker='x')
+
+plt.title("Simple KNN Graph")
+plt.show()
